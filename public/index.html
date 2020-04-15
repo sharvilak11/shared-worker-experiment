@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shared Worker Demo</title>
+</head>
+<body>
+<div id="app">
+    {{ socket ? 'Connected': 'Not connected' }}
+    <!-- TODO -->
+    <!--    1. Add google maps or mapbox and configure the maps.
+            2. Add the marker and place it over the map.
+    --->
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+<script src="config.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            socket: null
+        },
+        created() {
+            // TODO:
+            //      1. Add the shared worker.
+            //      2. Manage the shared worker to make only one connection over multiple tabs.
+            this.socket = io(window.socketendpoint);
+
+            this.socket.on('LOCATIONUPDATED', (data) => {
+                // TODO: Move the icon based on the latitude and longitude received
+                console.log(data);
+            });
+        }
+    });
+</script>
+</body>
+</html>

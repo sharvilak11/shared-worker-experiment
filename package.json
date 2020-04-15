@@ -1,0 +1,27 @@
+{
+  "name": "shared-worker-experiment",
+  "version": "1.0.0",
+  "description": "shared worker experiment with socket.io and web workers",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sharvilak11/shared-worker-experiment.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sharvilak11/shared-worker-experiment/issues"
+  },
+  "homepage": "https://github.com/sharvilak11/shared-worker-experiment#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "cors": "^2.8.5",
+    "dotenv": "^6.0.0",
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {}
+}
