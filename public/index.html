@@ -6,11 +6,12 @@
 </head>
 <body>
 <div id="app">
-    {{ socket ? 'Connected': 'Not connected' }}
+    <h6>{{ isConnected ? 'Connected': 'Disconnected' }}</h6>
     <!-- TODO -->
     <!--    1. Add google maps or mapbox and configure the maps.
             2. Add the marker and place it over the map.
     --->
+    <p>{{ currentLoc }}</p>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
@@ -19,18 +20,26 @@
     new Vue({
         el: '#app',
         data: {
-            socket: null
+            isConnected: false,
+            currentLoc: null
         },
         created() {
-            // TODO:
-            //      1. Add the shared worker.
-            //      2. Manage the shared worker to make only one connection over multiple tabs.
-            this.socket = io(window.socketendpoint);
+            const worker = new SharedWorker("jsworker.js");
+            worker.port.addEventListener("message", (e) => {
+                if (e.data === 'socket connection established') {
+                    this.isConnected = true;
+                } else if (e.data === 'socket disconnected') {
+                    this.isConnected = false;
+                } else {
+                    this.isConnected = true;
+                    this.currentLoc = e.data;
+                    // TODO: Move the icon based on the latitude and longitude received
+                    console.log(e.data);
+                }
+            }, false);
 
-            this.socket.on('LOCATIONUPDATED', (data) => {
-                // TODO: Move the icon based on the latitude and longitude received
-                console.log(data);
-            });
+            worker.port.start();
+            worker.port.postMessage('Connect');
         }
     });
 </script>
